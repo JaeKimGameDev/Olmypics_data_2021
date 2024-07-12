@@ -27,6 +27,9 @@ athleteData = athleteDataFile.query("Medal.notnull() & Season == 'Summer' & Year
 #pd.set_option('display.max_columns', None)
 pd.set_option('display.max_rows', None)
 
+# get a list of unique countries for teams in the Olympics that participated
+athleteCountry = athleteData['Team'].unique()
+
 #print(athleteData[['Name', 'Games', 'Medal', 'Sport']])
 # irrelevent from Paris 2024 Olympic website vs that didn't translate to dataset I downloaded, returns 0, find name he may have renamed too
 # Artistic Gymnastics, Artistic Swimming, Basketball 3x3, Breaking, Canoe Slalom, Canoe Sprint
@@ -35,60 +38,131 @@ pd.set_option('display.max_rows', None)
 listOfSports = ['Archery','Gymnastics','Athletics','Badminton',
                 'Basketball','Beach Volleyball','Boxing',
                 'Diving','Fencing','Football','Golf',
-                'Handball','Hockey','Judo','Modern Pentathlon','Rhythmic Gymnastics',
-                'Rowing','Rugby Sevens','Sailing','Shooting',
-                'Swimming','Table Tennis','Taekwondo','Tennis','Triathlon','Volleyball',
+                'Handball','Hockey','Judo','Modern Pentathlon',
+                'Rhythmic Gymnastics','Rowing','Rugby Sevens',
+                'Sailing','Shooting','Swimming','Table Tennis',
+                'Taekwondo','Tennis','Triathlon','Volleyball',
                 'Water Polo','Weightlifting','Wrestling']
 
 # adjust as needed, find the relevant data here through the sports, ex. find % of difference in ages
 # TODO print out the unique strings of different sports from csv TODO
 for i in range(len(listOfSports)):
-
-    # query male medalists by age
-    maleUnder25 = len(athleteData.query("Age < 25 & Sex == 'M' & Sport == '" + listOfSports[i] + "'"))
-    male25To30 = len(athleteData.query("Age >= 25 & Sex == 'M' & Age <= 30 & Sport == '" + listOfSports[i] + "'"))
-    maleOver30 = len(athleteData.query("Age > 30 & Sex == 'M' & Sport == '" + listOfSports[i] + "'"))
-
     print(listOfSports[i], "data from 1990 to 2014")
-    print("Male athletes age <= 25 that won a medal: ", maleUnder25)
-    print("Male athletes age 26 to 30 that won a medal: ", male25To30)
-    print("Male athletes age > 31 that won a medal: ", maleOver30)
-    print("\n")  # newline to tidy it up
 
-    femaleUnder25 = len(athleteData.query("Age < 25 & Sex == 'F' & Sport == '" + listOfSports[i] + "'"))
-    female25To30 = len(athleteData.query("Age >= 25 & Sex == 'F' & Age <= 30 & Sport == '" + listOfSports[i] + "'"))
-    femaleOver30 = len(athleteData.query("Age > 30 & Sex == 'F' & Sport == '" + listOfSports[i] + "'"))
+    for j in range(len(athleteCountry)):
 
-    print(listOfSports[i], "data from 1990 to 2014")
-    print("Female athletes age <= 25 that won a medal: ", femaleUnder25)
-    print("Female athletes age 26 to 30 that won a medal: ", female25To30)
-    print("Female athletes age > 31 that won a medal: ", femaleOver30)
+        # TODO, never use try and except, this is a special case. Bandage fix (bad practice)
+        try:
+            maleUnder25 = len(athleteData.query("Team == '" + athleteCountry[j] + "' & Age < 25 & Sex == 'M' & Sport == '" + listOfSports[i] + "'"))
+            male25To30 = len(athleteData.query("Team == '" + athleteCountry[j] + "' & Age >= 25 & Sex == 'M' & Age <= 30 & Sport == '" + listOfSports[i] + "'"))
+            maleOver30 = len(athleteData.query("Team == '" + athleteCountry[j] + "' & Age > 30 & Sex == 'M' & Sport == '" + listOfSports[i] + "'"))
 
-    print("\n") # newline to tidy it up
+            totalMaleMedalists = maleUnder25 + male25To30 + maleOver30
 
-# go further and base it on which medals? Country?
-athleteCountry = athleteData['Team'].unique()
-#print(athleteCountry)
+            # this is used to clean up the data, we don't want a dataset where it is too spread across
+            # TODO must create a dataset for 'others' where the rest of the data gets accumulated here to show client TODO
+            if (totalMaleMedalists > 10):
+                print("Country Team: " + athleteCountry[j])
+                print("Male athletes age <= 25 that won a medal: ", maleUnder25)
+                print("Male athletes age 26 to 30 that won a medal: ", male25To30)
+                print("Male athletes age > 31 that won a medal: ", maleOver30)
+                print("\n")  # newline to tidy it up
 
-for j in range(len(athleteCountry)):
-    print(athleteCountry[j])
-
-    try:
-        athleteTeam = len(athleteData.query("Team == '" + athleteCountry[j] + "'"))
-    except:
-        # some string has been inputted as "" instead of ' given ' was used in the string
-        # create a new word without '
-        newWord = ""
-        for letter in athleteCountry[j]:
-            if letter == "'":
-                continue
             else:
-                newWord = newWord + letter
-        athleteTeam = len(athleteData.query("Team == '" + newWord + "'"))
+                # TODO build off this if time is given TODO
+                # check if the athlete is relevent, (participating in next olympics, this case 2024 Paris), if this medalists even just one from this team had won)
+                # we can check data if he/she has a chance to win another based on cross referencing data from age observation of peak athleticism
+                # make note or a special mention, no reason to include on the bar graph though
+                # to build on this, we would comb through the current data on this sport and see the relevence on the age incase he has a higher chance to compete for a medal
+                # thinking about it, this is a dataset to 2014, 2024 Paris would be too far away to be relevent, for future implementation and datasets I guess
 
-    print(athleteTeam)
+                continue
 
+            femaleUnder25 = len(athleteData.query("Team == '" + athleteCountry[j] + "' & Age < 25 & Sex == 'F' & Sport == '" + listOfSports[i] + "'"))
+            female25To30 = len(athleteData.query("Team == '" + athleteCountry[j] + "' & Age >= 25 & Sex == 'F' & Age <= 30 & Sport == '" + listOfSports[i] + "'"))
+            femaleOver30 = len(athleteData.query("Team == '" + athleteCountry[j] + "' & Age > 30 & Sex == 'F' & Sport == '" + listOfSports[i] + "'"))
 
+            totalFemaleMedalists = femaleUnder25 + female25To30 + femaleOver30
 
+            # this is used to clean up the data, we don't want a dataset where it is too spread across
+            # TODO must create a dataset for 'others' where the rest of the data gets accumulated here to show client TODO
+            if (totalFemaleMedalists > 10):
+                print("Country Team: " + athleteCountry[j])
+                print("Female athletes age <= 25 that won a medal: ", femaleUnder25)
+                print("Female athletes age 26 to 30 that won a medal: ", female25To30)
+                print("Female athletes age > 31 that won a medal: ", femaleOver30)
+                print("\n")  # newline to tidy it up
+
+            else:
+                # TODO build off this if time is given TODO
+                # check if the athlete is relevent, (participating in next olympics, this case 2024 Paris), if this medalists even just one from this team had won)
+                # we can check data if he/she has a chance to win another based on cross referencing data from age observation of peak athleticism
+                # make note or a special mention, no reason to include on the bar graph though
+                # to build on this, we would comb through the current data on this sport and see the relevence on the age incase he has a higher chance to compete for a medal
+                # thinking about it, this is a dataset to 2014, 2024 Paris would be too far away to be relevent, for future implementation and datasets I guess
+
+                continue
+
+        # TODO love to optimize this in the future TODO
+        except:
+            # some string has been inputted as "" instead of ' given ' was used in the string, ex. Cote d'Ivoire. break the program
+            # create a new word without '
+            newWord = ""
+            for letter in athleteCountry[j]:
+                if letter == "'":
+                    continue
+                else:
+                    newWord = newWord + letter
+            athleteTeam = len(athleteData.query("Team == '" + newWord + "'"))
+
+            maleUnder25 = len(athleteData.query("Team == '" + newWord + "' & Age < 25 & Sex == 'M' & Sport == '" + listOfSports[i] + "'"))
+            male25To30 = len(athleteData.query("Team == '" + newWord + "' & Age >= 25 & Sex == 'M' & Age <= 30 & Sport == '" + listOfSports[i] + "'"))
+            maleOver30 = len(athleteData.query("Team == '" + newWord + "' & Age > 30 & Sex == 'M' & Sport == '" + listOfSports[i] + "'"))
+
+            totalMaleMedalists = maleUnder25 + male25To30 + maleOver30
+
+            # this is used to clean up the data, we don't want a dataset where it is too spread across
+            # TODO must create a dataset for 'others' where the rest of the data gets accumulated here to show client TODO
+            if (totalMaleMedalists > 10):
+                print("Country Team: " + newWord)
+                print("Male athletes age <= 25 that won a medal: ", maleUnder25)
+                print("Male athletes age 26 to 30 that won a medal: ", male25To30)
+                print("Male athletes age > 31 that won a medal: ", maleOver30)
+                print("\n")  # newline to tidy it up
+
+            else:
+                # TODO build off this if time is given TODO
+                # check if the athlete is relevent, (participating in next olympics, this case 2024 Paris), if this medalists even just one from this team had won)
+                # we can check data if he/she has a chance to win another based on cross referencing data from age observation of peak athleticism
+                # make note or a special mention, no reason to include on the bar graph though
+                # to build on this, we would comb through the current data on this sport and see the relevence on the age incase he has a higher chance to compete for a medal
+                # thinking about it, this is a dataset to 2014, 2024 Paris would be too far away to be relevent, for future implementation and datasets I guess
+
+                continue
+
+            femaleUnder25 = len(athleteData.query("Team == '" + newWord + "' & Age < 25 & Sex == 'F' & Sport == '" + listOfSports[i] + "'"))
+            female25To30 = len(athleteData.query("Team == '" + newWord + "' & Age >= 25 & Sex == 'F' & Age <= 30 & Sport == '" + listOfSports[i] + "'"))
+            femaleOver30 = len(athleteData.query("Team == '" + newWord + "' & Age > 30 & Sex == 'F' & Sport == '" + listOfSports[i] + "'"))
+
+            totalFemaleMedalists = femaleUnder25 + female25To30 + femaleOver30
+
+            # this is used to clean up the data, we don't want a dataset where it is too spread across
+            # TODO must create a dataset for 'others' where the rest of the data gets accumulated here to show client TODO
+            if (totalFemaleMedalists > 10):
+                print("Country Team: " + newWord)
+                print("Female athletes age <= 25 that won a medal: ", femaleUnder25)
+                print("Female athletes age 26 to 30 that won a medal: ", female25To30)
+                print("Female athletes age > 31 that won a medal: ", femaleOver30)
+                print("\n")  # newline to tidy it up
+
+            else:
+                # TODO build off this if time is given TODO
+                # check if the athlete is relevent, (participating in next olympics, this case 2024 Paris), if this medalists even just one from this team had won)
+                # we can check data if he/she has a chance to win another based on cross referencing data from age observation of peak athleticism
+                # make note or a special mention, no reason to include on the bar graph though
+                # to build on this, we would comb through the current data on this sport and see the relevence on the age incase he has a higher chance to compete for a medal
+                # thinking about it, this is a dataset to 2014, 2024 Paris would be too far away to be relevent, for future implementation and datasets I guess
+
+                continue
 
 
