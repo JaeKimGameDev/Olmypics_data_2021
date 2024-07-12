@@ -14,6 +14,12 @@ import plotly.express as px
 # https://www.kaggle.com/datasets/heesoo37/120-years-of-olympic-history-athletes-and-results
 # Dataset from 1896-2014, use this data to find athletes that won medals, and extract what we need
 
+# this is used for print out relevant data of medals that needs to be won in total for a country to be added to data
+minimumMedalForData = 30
+
+
+
+
 athleteDataFile = pd.read_csv(r'C:\Users\Jae\Desktop\Olympic_Dataset\athlete_Dataset.csv')
 
 #athleteDataFile.info()
@@ -44,7 +50,7 @@ listOfSports = ['Archery','Gymnastics','Athletics','Badminton',
                 'Taekwondo','Tennis','Triathlon','Volleyball',
                 'Water Polo','Weightlifting','Wrestling']
 
-# adjust as needed, find the relevant data here through the sports, ex. find % of difference in ages
+# adjust as needed, find the relevant data here through the sports, sorting by country, age and gender
 # TODO print out the unique strings of different sports from csv TODO
 for i in range(len(listOfSports)):
     print(listOfSports[i], "data from 1990 to 2014")
@@ -61,11 +67,11 @@ for i in range(len(listOfSports)):
 
             # this is used to clean up the data, we don't want a dataset where it is too spread across
             # TODO must create a dataset for 'others' where the rest of the data gets accumulated here to show client TODO
-            if (totalMaleMedalists > 10):
-                print("Country Team: " + athleteCountry[j])
-                print("Male athletes age <= 25 that won a medal: ", maleUnder25)
-                print("Male athletes age 26 to 30 that won a medal: ", male25To30)
-                print("Male athletes age > 31 that won a medal: ", maleOver30)
+            if (totalMaleMedalists >= minimumMedalForData):
+                print("Country Team: " + athleteCountry[j] + ", Gender: Male")
+                print("Athletes age <= 25 that won a medal: ", maleUnder25)
+                print("Athletes age 26 to 30 that won a medal: ", male25To30)
+                print("Athletes age > 31 that won a medal: ", maleOver30)
                 print("\n")  # newline to tidy it up
 
             else:
@@ -86,11 +92,11 @@ for i in range(len(listOfSports)):
 
             # this is used to clean up the data, we don't want a dataset where it is too spread across
             # TODO must create a dataset for 'others' where the rest of the data gets accumulated here to show client TODO
-            if (totalFemaleMedalists > 10):
-                print("Country Team: " + athleteCountry[j])
-                print("Female athletes age <= 25 that won a medal: ", femaleUnder25)
-                print("Female athletes age 26 to 30 that won a medal: ", female25To30)
-                print("Female athletes age > 31 that won a medal: ", femaleOver30)
+            if (totalFemaleMedalists >= minimumMedalForData):
+                print("Country Team: " + athleteCountry[j] + ", Gender: Females")
+                print("Athletes age <= 25 that won a medal: ", femaleUnder25)
+                print("Athletes age 26 to 30 that won a medal: ", female25To30)
+                print("Athletes age > 31 that won a medal: ", femaleOver30)
                 print("\n")  # newline to tidy it up
 
             else:
@@ -100,8 +106,7 @@ for i in range(len(listOfSports)):
                 # make note or a special mention, no reason to include on the bar graph though
                 # to build on this, we would comb through the current data on this sport and see the relevence on the age incase he has a higher chance to compete for a medal
                 # thinking about it, this is a dataset to 2014, 2024 Paris would be too far away to be relevent, for future implementation and datasets I guess
-
-                continue
+                print("Not enough data applicable to make a suggestion")
 
         # TODO love to optimize this in the future TODO
         except:
@@ -123,11 +128,11 @@ for i in range(len(listOfSports)):
 
             # this is used to clean up the data, we don't want a dataset where it is too spread across
             # TODO must create a dataset for 'others' where the rest of the data gets accumulated here to show client TODO
-            if (totalMaleMedalists > 10):
-                print("Country Team: " + newWord)
-                print("Male athletes age <= 25 that won a medal: ", maleUnder25)
-                print("Male athletes age 26 to 30 that won a medal: ", male25To30)
-                print("Male athletes age > 31 that won a medal: ", maleOver30)
+            if (totalMaleMedalists >= minimumMedalForData):
+                print("Country Team: " + newWord + ", Gender: Males")
+                print("Athletes age <= 25 that won a medal: ", maleUnder25)
+                print("Athletes age 26 to 30 that won a medal: ", male25To30)
+                print("Athletes age > 31 that won a medal: ", maleOver30)
                 print("\n")  # newline to tidy it up
 
             else:
@@ -137,8 +142,7 @@ for i in range(len(listOfSports)):
                 # make note or a special mention, no reason to include on the bar graph though
                 # to build on this, we would comb through the current data on this sport and see the relevence on the age incase he has a higher chance to compete for a medal
                 # thinking about it, this is a dataset to 2014, 2024 Paris would be too far away to be relevent, for future implementation and datasets I guess
-
-                continue
+                print("Not enough data applicable to make a suggestion")
 
             femaleUnder25 = len(athleteData.query("Team == '" + newWord + "' & Age < 25 & Sex == 'F' & Sport == '" + listOfSports[i] + "'"))
             female25To30 = len(athleteData.query("Team == '" + newWord + "' & Age >= 25 & Sex == 'F' & Age <= 30 & Sport == '" + listOfSports[i] + "'"))
@@ -148,11 +152,11 @@ for i in range(len(listOfSports)):
 
             # this is used to clean up the data, we don't want a dataset where it is too spread across
             # TODO must create a dataset for 'others' where the rest of the data gets accumulated here to show client TODO
-            if (totalFemaleMedalists > 10):
-                print("Country Team: " + newWord)
-                print("Female athletes age <= 25 that won a medal: ", femaleUnder25)
-                print("Female athletes age 26 to 30 that won a medal: ", female25To30)
-                print("Female athletes age > 31 that won a medal: ", femaleOver30)
+            if (totalFemaleMedalists >= minimumMedalForData):
+                print("Country Team: " + newWord + ", Gender: Females")
+                print("Athletes age <= 25 that won a medal: ", femaleUnder25)
+                print("Athletes age 26 to 30 that won a medal: ", female25To30)
+                print("Athletes age > 31 that won a medal: ", femaleOver30)
                 print("\n")  # newline to tidy it up
 
             else:
@@ -162,7 +166,6 @@ for i in range(len(listOfSports)):
                 # make note or a special mention, no reason to include on the bar graph though
                 # to build on this, we would comb through the current data on this sport and see the relevence on the age incase he has a higher chance to compete for a medal
                 # thinking about it, this is a dataset to 2014, 2024 Paris would be too far away to be relevent, for future implementation and datasets I guess
-
-                continue
+                print("Not enough data applicable to make a suggestion")
 
 
