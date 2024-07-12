@@ -18,7 +18,116 @@ import plotly.graph_objects as go
 # https://www.kaggle.com/datasets/heesoo37/120-years-of-olympic-history-athletes-and-results
 # Dataset from 1896-2014, use this data to find athletes that won medals, and extract what we need
 
-# organized by country, age and gender
+# organized by age and gender
+def remakeCSVFile2():
+
+    # read the data in our local PC
+    athleteDataFile = pd.read_csv(r'C:\Users\Jae\PycharmProjects\Hackathon_Official\athlete_Dataset.csv')
+
+    # drop tables if needed, improves efficiency, placeholder
+    athleteData = athleteDataFile.query("Medal.notnull() & Season == 'Summer' & Year >= 1970")
+
+    pd.set_option('display.max_rows', None)
+
+    # irrelevent from Paris 2024 Olympic website vs that didn't translate to dataset I downloaded, returns 0, find name he may have renamed too
+    # Artistic Gymnastics, Artistic Swimming, Basketball 3x3, Breaking, Canoe Slalom, Canoe Sprint
+    # Cycling BMX Freestyle, Cycling BMX Racing, Cycling Mountain Bike, Cycling Road, Cycling Track, Equestrian
+    # Marathon Swimming, Skateboarding, Sport Climbing, Surfing, Trampoline
+    listOfSports = ['Archery','Gymnastics','Athletics','Badminton',
+                    'Basketball','Beach Volleyball','Boxing',
+                    'Diving','Fencing','Football','Golf',
+                    'Handball','Hockey','Judo','Modern Pentathlon',
+                    'Rhythmic Gymnastics','Rowing','Rugby Sevens',
+                    'Sailing','Shooting','Swimming','Table Tennis',
+                    'Taekwondo','Tennis','Triathlon','Volleyball',
+                    'Water Polo','Weightlifting','Wrestling']
+
+    # create a new csv file with data that is organized the way we want it
+    with open('newAthleteData2.csv', 'w', newline='') as file:
+        writer = csv.writer(file)
+        field = ["sport", "gender", "age<25", "age(25-30)", "age>30", "totalAthletes"]
+        writer.writerow(field)
+
+        # adjust as needed, find the relevant data here through the sports, sorting by country, age and gender
+        # TODO print out the unique strings of different sports from csv TODO
+        for i in range(len(listOfSports)):
+            # using * as a way to make the data more easily readable for the person
+            print("******************************", listOfSports[i], "data from 1970 to 2014 ******************************\n")
+
+            maleUnder25 = len(athleteData.query("Age < 25 & Sex == 'M' & Sport == '" + listOfSports[i] + "'"))
+            male25To30 = len(athleteData.query("Age >= 25 & Sex == 'M' & Age <= 30 & Sport == '" + listOfSports[i] + "'"))
+            maleOver30 = len(athleteData.query("Age > 30 & Sex == 'M' & Sport == '" + listOfSports[i] + "'"))
+
+            print("Gender: Male")
+            print("Athletes age <= 25 that won a medal: ", maleUnder25)
+            print("Athletes age 26 to 30 that won a medal: ", male25To30)
+            print("Athletes age > 31 that won a medal: ", maleOver30, "\n")
+
+            totalAthletesMen = maleUnder25 + male25To30 + maleOver30
+
+            writer.writerow([listOfSports[i], "m", maleUnder25, male25To30, maleOver30, totalAthletesMen])
+
+            femaleUnder25 = len(athleteData.query("Age < 25 & Sex == 'F' & Sport == '" + listOfSports[i] + "'"))
+            female25To30 = len(athleteData.query("Age >= 25 & Sex == 'F' & Age <= 30 & Sport == '" + listOfSports[i] + "'"))
+            femaleOver30 = len(athleteData.query("Age > 30 & Sex == 'F' & Sport == '" + listOfSports[i] + "'"))
+
+            print("Gender: Females")
+            print("Athletes age <= 25 that won a medal: ", femaleUnder25)
+            print("Athletes age 26 to 30 that won a medal: ", female25To30)
+            print("Athletes age > 31 that won a medal: ", femaleOver30, "\n")
+
+            totalAthletesFemale = femaleUnder25 + female25To30 + femaleOver30
+
+            writer.writerow([listOfSports[i], "f", femaleUnder25, female25To30, femaleOver30, totalAthletesFemale])
+
+    return
+
+def makeGraph2():
+    # read the data in our local PC
+    athleteDataFile = pd.read_csv(r'C:\Users\Jae\PycharmProjects\Hackathon_Official\newAthleteData2.csv')
+
+    y = [athleteDataFile["age<25"], athleteDataFile["age(25-30)"], athleteDataFile["age>30"]]
+    x = [athleteDataFile["sport"], athleteDataFile["gender"]]
+    fig = go.Figure()
+
+    barName = ["Age < 25", "Age 25-30", "Age > 30"]
+    for i in range(3):
+        fig.add_bar(
+            x=x,
+            y=y[i],
+            name=barName[i])
+
+    fig.update_layout(
+        barmode="group",
+        title_text="Prediction of Medalists for Olympics 2024 Paris",
+        xaxis_title="Sport",
+        yaxis_title="Number of Athletes",
+        legend_title_text="Age Group")
+    fig.show()
+
+    return
+
+def main():
+    # remakeCSVFile()
+    # makeGraph()
+
+    remakeCSVFile2()
+    makeGraph2()
+
+    return
+
+if __name__ == "__main__":
+    main()
+
+
+
+
+
+
+
+
+# did not use**********************************************************************************************************
+# organized by country, age and gender DID NOT USE THIS ONE
 def remakeCSVFile():
 
     # this is used for print out relevant data of medals that needs to be won in total for a country to be added to data
@@ -228,70 +337,6 @@ def remakeCSVFile():
 
     return
 
-# this is without country, organized by age and gender
-def remakeCSVFile2():
-
-    # read the data in our local PC
-    athleteDataFile = pd.read_csv(r'C:\Users\Jae\PycharmProjects\Hackathon_Official\athlete_Dataset.csv')
-
-    # drop tables if needed, improves efficiency, placeholder
-    athleteData = athleteDataFile.query("Medal.notnull() & Season == 'Summer' & Year >= 1970")
-
-    pd.set_option('display.max_rows', None)
-
-    # irrelevent from Paris 2024 Olympic website vs that didn't translate to dataset I downloaded, returns 0, find name he may have renamed too
-    # Artistic Gymnastics, Artistic Swimming, Basketball 3x3, Breaking, Canoe Slalom, Canoe Sprint
-    # Cycling BMX Freestyle, Cycling BMX Racing, Cycling Mountain Bike, Cycling Road, Cycling Track, Equestrian
-    # Marathon Swimming, Skateboarding, Sport Climbing, Surfing, Trampoline
-    listOfSports = ['Archery','Gymnastics','Athletics','Badminton',
-                    'Basketball','Beach Volleyball','Boxing',
-                    'Diving','Fencing','Football','Golf',
-                    'Handball','Hockey','Judo','Modern Pentathlon',
-                    'Rhythmic Gymnastics','Rowing','Rugby Sevens',
-                    'Sailing','Shooting','Swimming','Table Tennis',
-                    'Taekwondo','Tennis','Triathlon','Volleyball',
-                    'Water Polo','Weightlifting','Wrestling']
-
-    # create a new csv file with data that is organized the way we want it
-    with open('newAthleteData2.csv', 'w', newline='') as file:
-        writer = csv.writer(file)
-        field = ["sport", "gender", "age<25", "age(25-30)", "age>30", "totalAthletes"]
-        writer.writerow(field)
-
-        # adjust as needed, find the relevant data here through the sports, sorting by country, age and gender
-        # TODO print out the unique strings of different sports from csv TODO
-        for i in range(len(listOfSports)):
-            # using * as a way to make the data more easily readable for the person
-            print("******************************", listOfSports[i], "data from 1970 to 2014 ******************************\n")
-
-            maleUnder25 = len(athleteData.query("Age < 25 & Sex == 'M' & Sport == '" + listOfSports[i] + "'"))
-            male25To30 = len(athleteData.query("Age >= 25 & Sex == 'M' & Age <= 30 & Sport == '" + listOfSports[i] + "'"))
-            maleOver30 = len(athleteData.query("Age > 30 & Sex == 'M' & Sport == '" + listOfSports[i] + "'"))
-
-            print("Gender: Male")
-            print("Athletes age <= 25 that won a medal: ", maleUnder25)
-            print("Athletes age 26 to 30 that won a medal: ", male25To30)
-            print("Athletes age > 31 that won a medal: ", maleOver30, "\n")
-
-            totalAthletesMen = maleUnder25 + male25To30 + maleOver30
-
-            writer.writerow([listOfSports[i], "m", maleUnder25, male25To30, maleOver30, totalAthletesMen])
-
-            femaleUnder25 = len(athleteData.query("Age < 25 & Sex == 'F' & Sport == '" + listOfSports[i] + "'"))
-            female25To30 = len(athleteData.query("Age >= 25 & Sex == 'F' & Age <= 30 & Sport == '" + listOfSports[i] + "'"))
-            femaleOver30 = len(athleteData.query("Age > 30 & Sex == 'F' & Sport == '" + listOfSports[i] + "'"))
-
-            print("Gender: Females")
-            print("Athletes age <= 25 that won a medal: ", femaleUnder25)
-            print("Athletes age 26 to 30 that won a medal: ", female25To30)
-            print("Athletes age > 31 that won a medal: ", femaleOver30, "\n")
-
-            totalAthletesFemale = femaleUnder25 + female25To30 + femaleOver30
-
-            writer.writerow([listOfSports[i], "f", femaleUnder25, female25To30, femaleOver30, totalAthletesFemale])
-
-    return
-
 def makeGraph():
     # read the data in our local PC
     athleteDataFile = pd.read_csv(r'C:\Users\Jae\PycharmProjects\Hackathon_Official\newAthleteData.csv')
@@ -299,41 +344,3 @@ def makeGraph():
 
 
     return
-
-def makeGraph2():
-    # read the data in our local PC
-    athleteDataFile = pd.read_csv(r'C:\Users\Jae\PycharmProjects\Hackathon_Official\newAthleteData2.csv')
-
-    y = [athleteDataFile["age<25"], athleteDataFile["age(25-30)"], athleteDataFile["age>30"]]
-    x = [athleteDataFile["sport"], athleteDataFile["gender"]]
-    fig = go.Figure()
-
-    barName = ["Age < 25", "Age 25-30", "Age > 30"]
-    for i in range(3):
-        fig.add_bar(
-            x=x,
-            y=y[i],
-            name=barName[i])
-
-    fig.update_layout(
-        barmode="group",
-        title_text="Prediction of Medalists for Olympics 2024 Paris",
-        xaxis_title="Sport",
-        yaxis_title="Number of Athletes",
-        legend_title_text="Age Group")
-    fig.show()
-
-    return
-
-
-def main():
-    # remakeCSVFile()
-    # makeGraph()
-
-    remakeCSVFile2()
-    makeGraph2()
-
-    return
-
-if __name__ == "__main__":
-    main()
