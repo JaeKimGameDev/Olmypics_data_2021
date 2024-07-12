@@ -15,17 +15,23 @@ import plotly.express as px
 # Dataset from 1896-2014, use this data to find athletes that won medals, and extract what we need
 
 # this is used for print out relevant data of medals that needs to be won in total for a country to be added to data
-minimumMedalForData = 30
+minimumMedalForData = 40
 
+# used to capture data for other countries that doesn't achieve minimum medals
+otherCountriesMaleUnder25 = 0
+otherCountriesMale25To30 = 0
+otherCountriesMaleOver30 = 0
+otherCountriesFemaleUnder25 = 0
+otherCountriesFemale25To30 = 0
+otherCountriesFemaleOver30 = 0
 
-
-
+# read the data in our local PC
 athleteDataFile = pd.read_csv(r'C:\Users\Jae\Desktop\Olympic_Dataset\athlete_Dataset.csv')
 
 #athleteDataFile.info()
 
 # drop tables if needed, improves efficiency, placeholder
-athleteData = athleteDataFile.query("Medal.notnull() & Season == 'Summer' & Year >= 1990")
+athleteData = athleteDataFile.query("Medal.notnull() & Season == 'Summer' & Year >= 1970")
 
 # find athletes that won any medal and games that are in the summer, used 1980's and up for relevancy
 #athleteData = athleteData.query("Medal.notnull() & Season == 'Summer' & Year >= 1990")
@@ -53,11 +59,21 @@ listOfSports = ['Archery','Gymnastics','Athletics','Badminton',
 # adjust as needed, find the relevant data here through the sports, sorting by country, age and gender
 # TODO print out the unique strings of different sports from csv TODO
 for i in range(len(listOfSports)):
-    print(listOfSports[i], "data from 1990 to 2014")
+    # using * as a way to make the data more easily readable for the person
+    print("******************************", listOfSports[i], "data from 1990 to 2014 ******************************\n")
+
+    # reset the data for each sporting event
+    otherCountriesMaleUnder25 = 0
+    otherCountriesMale25To30 = 0
+    otherCountriesMaleOver30 = 0
+
+    otherCountriesFemaleUnder25 = 0
+    otherCountriesFemale25To30 = 0
+    otherCountriesFemaleOver30 = 0
 
     for j in range(len(athleteCountry)):
 
-        # TODO, never use try and except, this is a special case. Bandage fix (bad practice)
+        # TODO, never use try and except, this is a special case. Bandage fix (bad practice) because of ' in some countries ex. Cote d'Ivoire. break the program (makes the string into "Cote d'Ivoire" for query
         try:
             maleUnder25 = len(athleteData.query("Team == '" + athleteCountry[j] + "' & Age < 25 & Sex == 'M' & Sport == '" + listOfSports[i] + "'"))
             male25To30 = len(athleteData.query("Team == '" + athleteCountry[j] + "' & Age >= 25 & Sex == 'M' & Age <= 30 & Sport == '" + listOfSports[i] + "'"))
@@ -71,8 +87,7 @@ for i in range(len(listOfSports)):
                 print("Country Team: " + athleteCountry[j] + ", Gender: Male")
                 print("Athletes age <= 25 that won a medal: ", maleUnder25)
                 print("Athletes age 26 to 30 that won a medal: ", male25To30)
-                print("Athletes age > 31 that won a medal: ", maleOver30)
-                print("\n")  # newline to tidy it up
+                print("Athletes age > 31 that won a medal: ", maleOver30, "\n")
 
             else:
                 # TODO build off this if time is given TODO
@@ -81,8 +96,9 @@ for i in range(len(listOfSports)):
                 # make note or a special mention, no reason to include on the bar graph though
                 # to build on this, we would comb through the current data on this sport and see the relevence on the age incase he has a higher chance to compete for a medal
                 # thinking about it, this is a dataset to 2014, 2024 Paris would be too far away to be relevent, for future implementation and datasets I guess
-
-                continue
+                otherCountriesMaleUnder25 = otherCountriesMaleUnder25 + maleUnder25
+                otherCountriesMale25To30 = otherCountriesMale25To30 + male25To30
+                otherCountriesMaleOver30 = otherCountriesMaleOver30 + maleOver30
 
             femaleUnder25 = len(athleteData.query("Team == '" + athleteCountry[j] + "' & Age < 25 & Sex == 'F' & Sport == '" + listOfSports[i] + "'"))
             female25To30 = len(athleteData.query("Team == '" + athleteCountry[j] + "' & Age >= 25 & Sex == 'F' & Age <= 30 & Sport == '" + listOfSports[i] + "'"))
@@ -96,8 +112,7 @@ for i in range(len(listOfSports)):
                 print("Country Team: " + athleteCountry[j] + ", Gender: Females")
                 print("Athletes age <= 25 that won a medal: ", femaleUnder25)
                 print("Athletes age 26 to 30 that won a medal: ", female25To30)
-                print("Athletes age > 31 that won a medal: ", femaleOver30)
-                print("\n")  # newline to tidy it up
+                print("Athletes age > 31 that won a medal: ", femaleOver30, "\n")
 
             else:
                 # TODO build off this if time is given TODO
@@ -106,7 +121,9 @@ for i in range(len(listOfSports)):
                 # make note or a special mention, no reason to include on the bar graph though
                 # to build on this, we would comb through the current data on this sport and see the relevence on the age incase he has a higher chance to compete for a medal
                 # thinking about it, this is a dataset to 2014, 2024 Paris would be too far away to be relevent, for future implementation and datasets I guess
-                print("Not enough data applicable to make a suggestion")
+                otherCountriesFemaleUnder25 = otherCountriesFemaleUnder25 + femaleUnder25
+                otherCountriesFemale25To30 = otherCountriesFemale25To30 + female25To30
+                otherCountriesFemaleOver30 = otherCountriesFemaleOver30 + femaleOver30
 
         # TODO love to optimize this in the future TODO
         except:
@@ -132,8 +149,7 @@ for i in range(len(listOfSports)):
                 print("Country Team: " + newWord + ", Gender: Males")
                 print("Athletes age <= 25 that won a medal: ", maleUnder25)
                 print("Athletes age 26 to 30 that won a medal: ", male25To30)
-                print("Athletes age > 31 that won a medal: ", maleOver30)
-                print("\n")  # newline to tidy it up
+                print("Athletes age > 31 that won a medal: ", maleOver30, "\n")
 
             else:
                 # TODO build off this if time is given TODO
@@ -142,7 +158,11 @@ for i in range(len(listOfSports)):
                 # make note or a special mention, no reason to include on the bar graph though
                 # to build on this, we would comb through the current data on this sport and see the relevence on the age incase he has a higher chance to compete for a medal
                 # thinking about it, this is a dataset to 2014, 2024 Paris would be too far away to be relevent, for future implementation and datasets I guess
-                print("Not enough data applicable to make a suggestion")
+                otherCountriesMaleUnder25 = otherCountriesMaleUnder25 + maleUnder25
+                otherCountriesMale25To30 = otherCountriesMale25To30 + male25To30
+                otherCountriesMaleOver30 = otherCountriesMaleOver30 + maleOver30
+
+            # printout the total participants that won medals as a whole that did not meet the threshold
 
             femaleUnder25 = len(athleteData.query("Team == '" + newWord + "' & Age < 25 & Sex == 'F' & Sport == '" + listOfSports[i] + "'"))
             female25To30 = len(athleteData.query("Team == '" + newWord + "' & Age >= 25 & Sex == 'F' & Age <= 30 & Sport == '" + listOfSports[i] + "'"))
@@ -156,8 +176,7 @@ for i in range(len(listOfSports)):
                 print("Country Team: " + newWord + ", Gender: Females")
                 print("Athletes age <= 25 that won a medal: ", femaleUnder25)
                 print("Athletes age 26 to 30 that won a medal: ", female25To30)
-                print("Athletes age > 31 that won a medal: ", femaleOver30)
-                print("\n")  # newline to tidy it up
+                print("Athletes age > 31 that won a medal: ", femaleOver30, "\n")
 
             else:
                 # TODO build off this if time is given TODO
@@ -166,6 +185,17 @@ for i in range(len(listOfSports)):
                 # make note or a special mention, no reason to include on the bar graph though
                 # to build on this, we would comb through the current data on this sport and see the relevence on the age incase he has a higher chance to compete for a medal
                 # thinking about it, this is a dataset to 2014, 2024 Paris would be too far away to be relevent, for future implementation and datasets I guess
-                print("Not enough data applicable to make a suggestion")
+                otherCountriesFemaleUnder25 = otherCountriesFemaleUnder25 + femaleUnder25
+                otherCountriesFemale25To30 = otherCountriesFemale25To30 + female25To30
+                otherCountriesFemaleOver30 = otherCountriesFemaleOver30 + femaleOver30
 
+    # printing out the dataset for all the other countries as one that did not meet the minimum medals requirements here before moving onto the next sporting event
+    print("Country Team: Other Countries, Gender: Male")
+    print("Athletes age <= 25 that won a medal: ", otherCountriesMaleUnder25)
+    print("Athletes age 26 to 30 that won a medal: ", otherCountriesMale25To30)
+    print("Athletes age > 31 that won a medal: ", otherCountriesMaleOver30, "\n")
 
+    print("Country Team: Other Countries, Gender: Female")
+    print("Athletes age <= 25 that won a medal: ", otherCountriesFemaleUnder25)
+    print("Athletes age 26 to 30 that won a medal: ", otherCountriesFemale25To30)
+    print("Athletes age > 31 that won a medal: ", otherCountriesFemaleOver30, "\n")
