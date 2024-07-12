@@ -84,27 +84,46 @@ athleteData = athleteData.query("Medal.notnull() & Season == 'Summer'")
 pd.set_option('display.max_rows', None)
 
 #print(athleteData[['Name', 'Games', 'Medal', 'Sport']])
-
-listOfSports = ['Archery','Artistic Gymnastics','Artistic Swimming','Athletics','Badminton',
-                'Basketball','Basketball 3x3','Beach Volleyball','Boxing','Breaking','Canoe Slalom',
-                'Canoe Sprint','Cycling BMX Freestyle','Cycling BMX Racing','Cycling Mountain Bike',
-                'Cycling Road','Cycling Track', 'Diving','Equestrian','Fencing','Football','Golf',
-                'Handball','Hockey','Judo','Marathon Swimming','Modern Pentathlon','Rhythmic Gymnastics',
-                'Rowing','Rugby Sevens','Sailing','Shooting','Skateboarding','Sport Climbing','Surfing',
-                'Swimming','Table Tennis','Taekwondo','Tennis','Trampoline','Triathlon','Volleyball',
+# irrelevent from olympic website vs dataset I downloaded, returns 0, find name he may have renamed too
+# Artistic Gymnastics, Artistic Swimming, Basketball 3x3, Breaking, Canoe Slalom, Canoe Sprint
+# Cycling BMX Freestyle, Cycling BMX Racing, Cycling Mountain Bike, Cycling Road, Cycling Track, Equestrian
+# Marathon Swimming, Skateboarding, Sport Climbing, Surfing, Trampoline
+listOfSports = ['Archery','Gymnastics','Athletics','Badminton',
+                'Basketball','Beach Volleyball','Boxing',
+                'Diving','Fencing','Football','Golf',
+                'Handball','Hockey','Judo','Modern Pentathlon','Rhythmic Gymnastics',
+                'Rowing','Rugby Sevens','Sailing','Shooting',
+                'Swimming','Table Tennis','Taekwondo','Tennis','Triathlon','Volleyball',
                 'Water Polo','Weightlifting','Wrestling']
 
 # adjust as needed, find the relevant data here through the sports, ex. find % of difference in ages
-relevantAthleteData = []
+# change to list of lists later, make a working prototype
+# athleteDataTo25 = []
+# athleteData26To30 = []
+# athleteDataFrom31 = []
+
 # Creates a list of lists and organizes the data into sports categories (inefficient, change later)
+# this is only querying, not saving data, it overwrites
 for i in range(len(listOfSports)):
-    relevantAthleteData = [listOfSports[i]]
-    relevantAthleteData.append(athleteData.query("Age <= 25 & Sport == listOfSport[i]"))
+    print(listOfSports[i])
+    print("Athletes age <= 25 that won a medal: ", len(athleteData.query("Age <= 25 & Sport == '" + listOfSports[i] + "'")))
+    print("Athletes age 26 to 30 that won a medal: ", len(athleteData.query("Age > 25 & Age <= 30 & Sport == '" + listOfSports[i] + "'")))
+    print("Athletes age > 31 that won a medal: ", len(athleteData.query("Age > 30 & Sport == '" + listOfSports[i] + "'")))
+    print("\n") # newline to tidy it up
 
 
+    # athleteDataTo25 = [listOfSports[i]]
+    # athleteData26To30 = [listOfSports[i]]
+    # athleteDataFrom31 = [listOfSports[i]]
+    # athleteDataTo25.append(athleteData.query("Age <= 25 & Sport == '" + listOfSports[i] + "'"))
+    # athleteData26To30.append(athleteData.query("Age > 25 & Age <= 30 & Sport == '" + listOfSports[i] + "'"))
+    # athleteDataFrom31.append(athleteData.query("Age > 30 & Sport == '" + listOfSports[i] + "'"))
+
+# prints wrestling
+#print(athleteDataTo25[0])
 
 
-    #relevantAthleteData.append([athleteData[(athleteData['Sport'] == listOfSports[i])]])
+#relevantAthleteData.append([athleteData[(athleteData['Sport'] == listOfSports[i])]])
 
 
 
