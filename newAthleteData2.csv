@@ -1,0 +1,59 @@
+sport,gender,age<25,age(25-30),age>30,totalAthletes
+Archery,m,58,33,17,108
+Archery,f,61,36,11,108
+Gymnastics,m,345,127,5,477
+Gymnastics,f,389,9,1,399
+Athletics,m,522,487,122,1131
+Athletics,f,381,466,113,960
+Badminton,m,28,47,9,84
+Badminton,f,41,40,3,84
+Basketball,m,187,193,51,431
+Basketball,f,171,170,52,393
+Beach Volleyball,m,2,20,14,36
+Beach Volleyball,f,5,15,16,36
+Boxing,m,371,154,12,537
+Boxing,f,9,11,4,24
+Diving,m,85,44,3,132
+Diving,f,89,39,4,132
+Fencing,m,161,267,109,537
+Fencing,f,116,112,46,274
+Football,m,456,157,18,631
+Football,f,129,129,44,302
+Golf,m,0,0,3,3
+Golf,f,1,2,0,3
+Handball,m,139,272,116,527
+Handball,f,207,205,60,472
+Hockey,m,233,293,50,576
+Hockey,f,202,221,55,478
+Judo,m,135,177,23,335
+Judo,f,86,100,10,196
+Modern Pentathlon,m,26,43,21,90
+Modern Pentathlon,f,3,12,0,15
+Rhythmic Gymnastics,m,0,0,0,0
+Rhythmic Gymnastics,f,127,5,0,132
+Rowing,m,344,547,143,1034
+Rowing,f,308,312,100,720
+Rugby Sevens,m,14,22,2,38
+Rugby Sevens,f,19,16,1,36
+Sailing,m,76,171,177,424
+Sailing,f,38,64,24,126
+Shooting,m,60,106,147,313
+Shooting,f,49,51,46,146
+Swimming,m,836,205,18,1059
+Swimming,f,833,144,13,990
+Table Tennis,m,43,32,9,84
+Table Tennis,f,50,29,5,84
+Taekwondo,m,40,30,2,72
+Taekwondo,f,52,19,1,72
+Tennis,m,28,43,13,84
+Tennis,f,40,32,12,84
+Triathlon,m,4,8,3,15
+Triathlon,f,2,8,5,15
+Volleyball,m,125,227,77,429
+Volleyball,f,191,191,26,408
+Water Polo,m,151,227,64,442
+Water Polo,f,83,93,15,191
+Weightlifting,m,165,135,23,323
+Weightlifting,f,66,34,5,105
+Wrestling,m,255,367,47,669
+Wrestling,f,28,30,10,68
