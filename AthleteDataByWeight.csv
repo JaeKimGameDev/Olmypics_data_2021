@@ -1,0 +1,175 @@
+Sport,Gender,Weight<60,Weight(60-70),Weight(71-80),Weight(81-90),Weight>91,Medal
+Archery,M,1,5,11,2,8,Gold
+Archery,F,12,6,3,0,0,Gold
+Archery,M,0,5,10,10,2,Silver
+Archery,F,5,19,4,0,0,Silver
+Archery,M,0,5,8,7,8,Bronze
+Archery,F,9,16,2,1,0,Bronze
+Gymnastics,M,51,34,5,0,0,Gold
+Gymnastics,F,68,0,0,0,0,Gold
+Gymnastics,M,42,43,5,0,0,Silver
+Gymnastics,F,70,0,0,0,0,Silver
+Gymnastics,M,26,50,12,0,0,Bronze
+Gymnastics,F,64,0,0,0,0,Bronze
+Athletics,M,23,45,72,54,34,Gold
+Athletics,F,105,78,10,5,12,Gold
+Athletics,M,24,44,80,41,30,Silver
+Athletics,F,102,84,11,7,10,Silver
+Athletics,M,21,53,75,39,33,Bronze
+Athletics,F,87,87,13,4,9,Bronze
+Badminton,M,0,10,13,3,0,Gold
+Badminton,F,4,17,1,0,0,Gold
+Badminton,M,0,14,10,3,0,Silver
+Badminton,F,7,15,2,0,0,Silver
+Badminton,M,0,10,13,5,0,Bronze
+Badminton,F,9,18,0,0,0,Bronze
+Basketball,M,0,0,2,11,71,Gold
+Basketball,F,3,20,37,17,3,Gold
+Basketball,M,0,0,3,20,61,Silver
+Basketball,F,1,35,24,19,4,Silver
+Basketball,M,0,0,4,14,65,Bronze
+Basketball,F,2,35,32,13,2,Bronze
+Beach Volleyball,M,0,0,1,4,6,Gold
+Beach Volleyball,F,0,3,9,0,0,Gold
+Beach Volleyball,M,0,0,2,4,4,Silver
+Beach Volleyball,F,2,6,3,0,0,Silver
+Beach Volleyball,M,0,0,1,6,5,Bronze
+Beach Volleyball,F,0,6,6,0,0,Bronze
+Boxing,M,24,20,11,6,13,Gold
+Boxing,F,2,2,2,0,0,Gold
+Boxing,M,23,22,11,7,14,Silver
+Boxing,F,2,2,2,0,0,Silver
+Boxing,M,47,43,24,12,27,Bronze
+Boxing,F,4,4,3,0,0,Bronze
+Diving,M,12,20,2,0,0,Gold
+Diving,F,34,0,0,0,0,Gold
+Diving,M,7,16,11,0,0,Silver
+Diving,F,30,4,0,0,0,Silver
+Diving,M,5,18,11,0,0,Bronze
+Diving,F,27,7,0,0,0,Bronze
+Fencing,M,0,12,52,18,4,Gold
+Fencing,F,31,27,5,0,0,Gold
+Fencing,M,0,14,44,23,8,Silver
+Fencing,F,19,33,9,0,0,Silver
+Fencing,M,0,12,36,30,9,Bronze
+Fencing,F,25,26,7,1,0,Bronze
+Football,M,2,40,41,15,0,Gold
+Football,F,37,59,3,2,0,Gold
+Football,M,0,19,75,21,3,Silver
+Football,F,51,43,5,0,0,Silver
+Football,M,1,25,67,11,1,Bronze
+Football,F,26,55,20,0,0,Bronze
+Golf,M,0,0,0,0,0,Gold
+Golf,F,0,1,0,0,0,Gold
+Golf,M,0,0,0,1,0,Silver
+Golf,F,0,0,0,0,0,Silver
+Golf,M,0,0,0,1,0,Bronze
+Golf,F,0,0,0,1,0,Bronze
+Handball,M,0,0,5,20,67,Gold
+Handball,F,2,36,31,1,0,Gold
+Handball,M,0,3,11,26,65,Silver
+Handball,F,6,57,24,4,1,Silver
+Handball,M,0,0,8,28,67,Bronze
+Handball,F,6,51,33,4,0,Bronze
+Hockey,M,0,7,61,39,6,Gold
+Hockey,F,40,62,3,0,0,Gold
+Hockey,M,0,20,57,30,2,Silver
+Hockey,F,49,48,2,0,0,Silver
+Hockey,M,1,14,52,32,4,Bronze
+Hockey,F,48,52,8,0,0,Bronze
+Judo,M,0,11,9,12,13,Gold
+Judo,F,17,18,5,1,6,Gold
+Judo,M,0,12,10,9,15,Silver
+Judo,F,17,15,7,0,7,Silver
+Judo,M,0,28,13,23,31,Bronze
+Judo,F,38,28,17,2,10,Bronze
+Modern Pentathlon,M,0,0,8,2,0,Gold
+Modern Pentathlon,F,3,2,0,0,0,Gold
+Modern Pentathlon,M,0,4,6,0,0,Silver
+Modern Pentathlon,F,0,5,0,0,0,Silver
+Modern Pentathlon,M,0,5,4,0,0,Bronze
+Modern Pentathlon,F,1,3,1,0,0,Bronze
+Rhythmic Gymnastics,M,0,0,0,0,0,Gold
+Rhythmic Gymnastics,F,40,2,0,0,0,Gold
+Rhythmic Gymnastics,M,0,0,0,0,0,Silver
+Rhythmic Gymnastics,F,37,0,0,0,0,Silver
+Rhythmic Gymnastics,M,0,0,0,0,0,Bronze
+Rhythmic Gymnastics,F,39,0,0,0,0,Bronze
+Rowing,M,8,4,30,33,117,Gold
+Rowing,F,16,15,95,15,0,Gold
+Rowing,M,9,9,28,44,105,Silver
+Rowing,F,14,31,83,10,1,Silver
+Rowing,M,9,11,26,41,110,Bronze
+Rowing,F,18,27,76,14,0,Bronze
+Rugby Sevens,M,0,0,0,5,8,Gold
+Rugby Sevens,F,0,9,3,0,0,Gold
+Rugby Sevens,M,0,0,0,6,6,Silver
+Rugby Sevens,F,1,5,5,1,0,Silver
+Rugby Sevens,M,0,0,2,5,6,Bronze
+Rugby Sevens,F,1,7,3,1,0,Bronze
+Sailing,M,0,20,24,16,17,Gold
+Sailing,F,14,26,0,0,0,Gold
+Sailing,M,1,21,22,16,18,Silver
+Sailing,F,10,25,4,0,0,Silver
+Sailing,M,1,13,35,8,20,Bronze
+Sailing,F,13,26,1,0,0,Bronze
+Shooting,M,0,9,36,17,3,Gold
+Shooting,F,16,13,4,8,0,Gold
+Shooting,M,0,14,21,15,12,Silver
+Shooting,F,16,18,3,3,1,Silver
+Shooting,M,0,7,30,20,9,Bronze
+Shooting,F,21,12,3,4,1,Bronze
+Swimming,M,0,4,43,104,78,Gold
+Swimming,F,41,141,45,2,0,Gold
+Swimming,M,0,2,72,96,45,Silver
+Swimming,F,28,159,28,0,0,Silver
+Swimming,M,1,15,64,79,45,Bronze
+Swimming,F,37,129,30,1,0,Bronze
+Table Tennis,M,0,12,10,2,0,Gold
+Table Tennis,F,12,12,0,0,0,Gold
+Table Tennis,M,2,11,11,0,0,Silver
+Table Tennis,F,10,13,1,0,0,Silver
+Table Tennis,M,3,10,11,2,0,Bronze
+Table Tennis,F,19,4,0,0,0,Bronze
+Taekwondo,M,3,5,5,4,3,Gold
+Taekwondo,F,10,6,4,0,0,Gold
+Taekwondo,M,4,6,4,3,3,Silver
+Taekwondo,F,10,9,1,0,0,Silver
+Taekwondo,M,5,10,8,3,6,Bronze
+Taekwondo,F,16,11,3,2,0,Bronze
+Tennis,M,0,0,12,10,1,Gold
+Tennis,F,0,17,6,0,0,Gold
+Tennis,M,0,1,13,7,2,Silver
+Tennis,F,8,13,2,0,0,Silver
+Tennis,M,0,1,15,8,2,Bronze
+Tennis,F,10,14,2,0,0,Bronze
+Triathlon,M,0,3,2,0,0,Gold
+Triathlon,F,5,0,0,0,0,Gold
+Triathlon,M,0,3,2,0,0,Silver
+Triathlon,F,3,2,0,0,0,Silver
+Triathlon,M,1,3,1,0,0,Bronze
+Triathlon,F,5,0,0,0,0,Bronze
+Volleyball,M,0,0,7,30,44,Gold
+Volleyball,F,2,21,49,1,0,Gold
+Volleyball,M,0,0,13,35,36,Silver
+Volleyball,F,1,11,50,12,1,Silver
+Volleyball,M,0,0,9,33,39,Bronze
+Volleyball,F,5,33,41,5,0,Bronze
+Water Polo,M,0,3,7,14,63,Gold
+Water Polo,F,1,28,26,6,2,Gold
+Water Polo,M,0,2,4,27,47,Silver
+Water Polo,F,4,25,29,5,1,Silver
+Water Polo,M,0,0,3,24,61,Bronze
+Water Polo,F,3,30,22,8,1,Bronze
+Weightlifting,M,8,13,9,6,24,Gold
+Weightlifting,F,15,10,5,0,5,Gold
+Weightlifting,M,8,12,10,7,23,Silver
+Weightlifting,F,15,10,6,0,4,Silver
+Weightlifting,M,6,14,10,9,20,Bronze
+Weightlifting,F,15,11,5,0,4,Bronze
+Wrestling,M,17,28,20,17,28,Gold
+Wrestling,F,8,7,3,0,0,Gold
+Wrestling,M,20,27,13,18,31,Silver
+Wrestling,F,9,5,4,0,0,Silver
+Wrestling,M,25,37,24,16,44,Bronze
+Wrestling,F,16,9,7,0,0,Bronze
