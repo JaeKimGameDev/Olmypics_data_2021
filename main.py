@@ -132,10 +132,10 @@ def barGraphByHeight(gender):
                        y=[df["Height<160"],df["Height(160-170)"],df["Height(171-180)"],df["Height(181-190)"],df["Height>190"]],
                        barmode='group')
     fig.update_layout(
-        title='Number of Athletes that Won Medals by Height, Gender:(' + gender.upper() + ')',
+        title='Number of Athletes that Won Medals by Height (Cm), Gender:(' + gender.upper() + ')',
         xaxis_title="Sports",
         yaxis_title="Number of Athletes",
-        legend_title="Height Group")
+        legend_title="Height Group in Cm")
     fig.show()
     return
 
@@ -147,10 +147,10 @@ def barGraphByWeight(gender):
                        y=[df["Weight<60"],df["Weight(60-70)"],df["Weight(71-80)"],df["Weight(81-90)"],df["Weight>91"]],
                        barmode='group')
     fig.update_layout(
-        title='Number of Athletes that Won Medals by Weight, Gender:(' + gender.upper() + ')',
+        title='Number of Athletes that Won Medals by Weight (Kg), Gender:(' + gender.upper() + ')',
         xaxis_title="Sports",
         yaxis_title="Number of Athletes",
-        legend_title="Weight Group")
+        legend_title="Weight Group in Kg")
     fig.show()
     return
 
@@ -160,11 +160,6 @@ def scatterGraphBySport(activity,gender):
 
     df = df.query("Medal.notnull() & Season == 'Summer' & Year >= 1990")
 
-    # parisSports = ['Archery','Gymnastics','Athletics','Badminton','Basketball','Beach Volleyball','Boxing',
-    #                 'Diving','Fencing','Football','Golf','Handball','Hockey','Judo','Modern Pentathlon',
-    #                 'Rhythmic Gymnastics','Rowing','Rugby Sevens','Sailing','Shooting','Swimming','Table Tennis',
-    #                 'Taekwondo','Tennis','Triathlon','Volleyball','Water Polo','Weightlifting','Wrestling']
-
     df = df.query("Sport == '" + activity + "' & Sex == '" + gender.upper() + "'")
     fig = px.scatter(df,x=df["Height"],
                         y=df["Age"],
@@ -173,28 +168,37 @@ def scatterGraphBySport(activity,gender):
                         color_discrete_sequence=["Gold","Silver","Brown"],
                         opacity=0.25)
     fig.update_layout(
-        title= activity + " Medals Won, Age vs Height, Gender:(" + gender.upper() + ")",
-        xaxis_title="Height",
+        title= activity + " Medals Won, Age vs Height (Cm), Gender:(" + gender.upper() + ")",
+        xaxis_title="Height (Cm)",
         yaxis_title="Age",
         legend_title="Medals")
     fig.show()
     return
 
 def main():
-    # remakeCSVFileByGender()
-    # barGraphByGender("m")
-    # barGraphByGender("f")
-    #
-    # remakeCSVFileByHeight()
-    # barGraphByHeight("m")
-    # barGraphByHeight("f")
-    #
-    # remakeCSVFileByWeight()
-    # barGraphByWeight("m")
-    # barGraphByWeight("f")
+    remakeCSVFileByGender()
+    barGraphByGender("m")
+    barGraphByGender("f")
+
+    remakeCSVFileByHeight()
+    barGraphByHeight("m")
+    barGraphByHeight("f")
+
+    remakeCSVFileByWeight()
+    barGraphByWeight("m")
+    barGraphByWeight("f")
 
     scatterGraphBySport("Swimming","m")
     scatterGraphBySport("Swimming","f")
+    
+    # parisSports = ['Archery','Gymnastics','Athletics','Badminton','Basketball','Beach Volleyball','Boxing',
+    #                 'Diving','Fencing','Football','Golf','Handball','Hockey','Judo','Modern Pentathlon',
+    #                 'Rhythmic Gymnastics','Rowing','Rugby Sevens','Sailing','Shooting','Swimming','Table Tennis',
+    #                 'Taekwondo','Tennis','Triathlon','Volleyball','Water Polo','Weightlifting','Wrestling']
+    # for sports in parisSports:
+    #     scatterGraphBySport(sports, "m")
+    #     scatterGraphBySport(sports, "f")
+
 
     return
 
