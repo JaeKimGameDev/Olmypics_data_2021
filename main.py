@@ -195,9 +195,9 @@ def main():
     #                 'Diving','Fencing','Football','Golf','Handball','Hockey','Judo','Modern Pentathlon',
     #                 'Rhythmic Gymnastics','Rowing','Rugby Sevens','Sailing','Shooting','Swimming','Table Tennis',
     #                 'Taekwondo','Tennis','Triathlon','Volleyball','Water Polo','Weightlifting','Wrestling']
-    # for sports in parisSports:
-    #     scatterGraphBySport(sports, "m")
-    #     scatterGraphBySport(sports, "f")
+    # for sport in parisSports:
+    #     scatterGraphBySport(sport, "m")
+    #     scatterGraphBySport(sport, "f")
 
 
     return
