@@ -220,8 +220,8 @@ def main():
 
     DrawBargraphByAge(athlete_data, 'Swimming', age_ranges, 'M')
     DrawBargraphByAge(athlete_data, 'Swimming', age_ranges, 'F')
-    DrawBargraphByAge(athlete_data, 'Swimming', age_ranges, 'M')
-    DrawBargraphByAge(athlete_data, 'Swimming', age_ranges, 'F')
+    DrawBargraphByAge(athlete_data, 'Basketball', age_ranges, 'M')
+    DrawBargraphByAge(athlete_data, 'Basketball', age_ranges, 'F')
 
 if __name__ == "__main__":
     main()
